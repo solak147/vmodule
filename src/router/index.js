@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
-import { baseStore } from 'store';
+// import { baseStore } from 'store';
 
 import baseRouters from './modules/base';
 
@@ -23,7 +23,7 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('authToken');
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isAuthenticated) {
-      baseStore().actions_showLogin(true)
+      // baseStore().actions_showLogin(true)
     } else {
       next();
     }

@@ -1,26 +1,13 @@
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-
-  <BaseList api="/person/chats">
-      <template #default="{ listData }">
-         <div v-for="(item, index) in listData" :key="index">{{ item.title }}</div>
-      </template>
-  </BaseList>
+  <Layout>
+   
+  </Layout>
 
 </template>
 
 <script setup>
 import { ref, onMounted, reactive, nextTick, onUnmounted } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import BaseList from './components/BaseList.vue'
+import Layout from '@/layout/index.vue'
 import Utils from './utils'
 import API from './apis'
 

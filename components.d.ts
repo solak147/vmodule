@@ -9,7 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     BaseList: typeof import('./src/components/BaseList.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    VanCell: typeof import('vant/es')['Cell']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     VanList: typeof import('vant/es')['List']
     VanPullRefresh: typeof import('vant/es')['PullRefresh']
   }
