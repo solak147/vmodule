@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, nextTick } from 'vue'
+import { onMounted, ref, reactive, computed, nextTick } from 'vue'
 import { get } from '@/apis/request'
 import Utils from '@/utils'
 
@@ -36,7 +36,9 @@ const props = defineProps({
 })
 
 const page = ref(0)
-const listData = ref([])
+let listData = reactive({
+    data:[]
+})
 const isLoading = ref(false)
 const isRefreshing = ref(false)
 const isError = ref(false)
@@ -52,6 +54,10 @@ onMounted(() =>{
 //test api: https://juejin.cn/post/7041461420818432030 
 const loadData = async () => {
 
+    if(isLoading.value){
+        return
+    }
+
     let reqPage = page.value + 1
 
     if (isRefreshing.value) {
@@ -63,7 +69,7 @@ const loadData = async () => {
     let reqParams = Utils.deepClone(props.params, { page: reqPage })
 
     try {
-        let resList = await get('http://jsonplaceholder.typicode.com/posts', reqParams)
+        let resList = await get(props.api, reqParams)
 
         if (!resList || !Array.isArray(resList)) {
             isError.value = true
@@ -74,23 +80,23 @@ const loadData = async () => {
 
         if (isRefreshing.value) {
             isRefreshing.value = false
-            listData.value = []
+            listData.data = []
             
             await nextTick()
-            listData.value = resList
+            listData.data = resList
         
             isFinished.value = false
             page.value = 1
         } else {
             isLoading.value = false
             if (reverse.value) {
-                listData.value = resList.reverse().concat(this.listData)
+                listData.data = resList.reverse().concat(listData.data)           
             } else {
-                listData.value = listData.value.concat(resList)
+                listData.data = listData.data.concat(resList)
             }
             page.value++
             emit('loaded')
-            emit('success', listData.value)
+            emit('success', listData.data)
 
             if (resList.length === 0) {
                 isFinished.value= true
@@ -103,7 +109,6 @@ const loadData = async () => {
         isRefreshing.value = false
         isError.value = true
     }
-
 }
 
 const onRefresh = () => {

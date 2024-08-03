@@ -1,4 +1,11 @@
 <template>
-    <h1>vmodule</h1>
-    <router-view></router-view>
+    <div class="layout">
+        <router-view></router-view>
+    </div>
 </template>
+
+<style scoped>
+.layout{
+
+}
+</style>

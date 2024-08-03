@@ -1,8 +1,7 @@
 <template>
-  <Layout>
-   
-  </Layout>
-
+  <div class="app">
+    <Layout></Layout>
+  </div>
 </template>
 
 <script setup>
@@ -19,6 +18,9 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.app{
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

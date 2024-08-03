@@ -68,6 +68,30 @@ const Utils = {
         }
         return name?(obj[name]||''):obj;
     },
+
+    // example:
+    // importScript("/js/swiper.min.js", data => {
+    //     after do
+    // })
+    importScript(path, success, error) {
+
+        if (document.querySelector(`script[src="${path}"]`) ) {
+            console.log('特定的 <script> 元素已存在');
+            return
+        } 
+
+        var oS = document.createElement('script')
+        oS.src = path
+        document.getElementsByTagName('head')[0].appendChild(oS)
+        oS.onload = function () {
+          success && success()
+        }
+      
+        oS.onerror = function () {
+          error && error()
+        }
+    }
 }
 
 export default Utils
+
